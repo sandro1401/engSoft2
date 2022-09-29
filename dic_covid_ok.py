@@ -192,9 +192,9 @@ def imprimir_lst_estados():
 
 def relatorio_estado():
     print(f" =-=-=-=-=-=-=-=-= Relatório dos Estados:")
-    for estado, l_city in dic_casos_covid.items():
+    for estado, lista_city in dic_casos_covid.items():
         total_casos = 0
-        for cidade in l_city:
+        for cidade in lista_city:
             total_casos += cidade.casos
         print(f"--->{estado}  -  Total de casos: {total_casos}")
     input(f"[Enter] Retorna ao Menu.")
