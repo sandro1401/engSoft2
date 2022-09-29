@@ -74,13 +74,13 @@ class Cidade:
         return self.__qt_casos_cidade
 
 
-d_covid = {}
+dic_casos_covid = {}
 
 
 def cadastrar_estados():
     nome_estado_ok = validar_nome_estado_ok().upper()
     sigla_estado_ok = validar_sigla_estado_ok().upper()
-    d_covid.setdefault(Estado(nome_estado_ok, sigla_estado_ok), [])
+    dic_casos_covid.setdefault(Estado(nome_estado_ok, sigla_estado_ok), [])
 
 
 def validar_nome_estado_ok():
@@ -96,7 +96,7 @@ def validar_nome_estado_ok():
 
 
 def existe_nome_na_lista_estado(nome):
-    for estado in d_covid.keys():
+    for estado in dic_casos_covid.keys():
         if nome == estado.nome_estado:
             return True
     return False
@@ -115,7 +115,7 @@ def validar_sigla_estado_ok():
 
 
 def existe_sigla_na_lista_estado(sigla):
-    for s in d_covid.keys():
+    for s in dic_casos_covid.keys():
         if sigla == s.sigla:
             return True
     return False
@@ -126,7 +126,7 @@ def identificar_estado_cidade():
         estado_escolhido = input("Digite o estado para cadastrada essa cidade: ").upper()
         if not estado_escolhido:
             break
-        for estado_na_lista in d_covid.keys():
+        for estado_na_lista in dic_casos_covid.keys():
             if estado_escolhido == estado_na_lista.nome_estado:
                 print(f"Ok... Estado localizado...")
                 return estado_na_lista
@@ -137,7 +137,7 @@ def cadastrar_cidade():
     cidade_ok = identificar_cidade()
     cont += 1
     try:
-        d_covid[identificar_estado_cidade()].append(Cidade(cidade_ok))
+        dic_casos_covid[identificar_estado_cidade()].append(Cidade(cidade_ok))
         if cont == 0:
             pass
     except:
@@ -157,7 +157,7 @@ def identificar_cidade():
 
 
 def existe_nome_na_lista_cidade(nome):
-    for cidade in d_covid.values():
+    for cidade in dic_casos_covid.values():
         for c in cidade:
             if nome == c.nome_cidade:
                 return True
@@ -169,7 +169,7 @@ def cidade_quant_casos_ok():
         nome_cidade = input(f"Digite o nome da cidade para incluir casos:").upper()
         if not nome_cidade:
             break
-        for city in d_covid.values():
+        for city in dic_casos_covid.values():
             for cidade in city:
                 if nome_cidade == cidade.nome_cidade:
                     print(f"Ok, Cidade localizada...{cidade}")
@@ -186,13 +186,13 @@ def cidade_quant_casos_ok():
 
 def imprimir_lst_estados():
     print(f" Lista de Estados Cadastrados...")
-    for est in d_covid:
-        print(f"{est}")
+    for estado in dic_casos_covid:
+        print(f"{estado}")
 
 
 def relatorio_estado():
     print(f" =-=-=-=-=-=-=-=-= Relatório dos Estados:")
-    for estado, l_city in d_covid.items():
+    for estado, l_city in dic_casos_covid.items():
         total_casos = 0
         for cidade in l_city:
             total_casos += cidade.casos
@@ -202,15 +202,15 @@ def relatorio_estado():
 
 def relatorio_cidade():
     print(f"============== Relatório de Cidades:")
-    for cidade in d_covid.values():
+    for cidade in dic_casos_covid.values():
         for city in cidade:
             print(f'--->{city} - Casos Registrados: {city.casos}')
     input(f"[Enter] Retorna ao Menu.")
 
 
 def imprimir_d_covid():
-    for est, city in d_covid.items():
-        print(f"{est} - {city}\n")
+    for estado, city in dic_casos_covid.items():
+        print(f"{estado} - {city}\n")
 
 
 def interface():
